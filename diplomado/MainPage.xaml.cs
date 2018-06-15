@@ -11,27 +11,48 @@ namespace diplomado
     {
         public MainPage()
         {
-            //Content = new Label
-            //{
-            //    // = LayoutOptions.Center,
-            //    Text =
-            //        "Mr. Sherlock Holmes, who was usually very late in " +
-            //        "the mornings, save upon those not infrequent " +
-            //        "occasions when he was up all night, was seated at " +
-            //        "the breakfast table. I stood upon the hearth-rug " +
-            //        "and picked up the stick which our visitor had left " +
-            //        "behind him the night before. It was a fine, thick " +
-            //        "piece of wood, bulbous-headed, of the sort which " +
-            //        "is known as a \u201CPenang lawyer.\u201D Just " +
-            //        "under the head was a broad silver band, nearly an " +
-            //        "inch across, \u201CTo James Mortimer, M.R.C.S., " +
-            //        "from his friends of the C.C.H.,\u201D was engraved " +
-            //        "upon it, with the date \u201C1884.\u201D It was " +
-            //        "just such a stick as the old-fashioned family " +
-            //        "practitioner used to carry\u2014dignified, solid, " +
-            //        "and reassuring."
-            //};
-            //Padding = new Thickness(5, Device.RuntimePlatform == Device.iOS ? 20 : 5, 5, 5);
+            var colors = new[]
+            {
+                new { value = Color.White, name = "White" },
+                new { value = Color.Silver, name = "Silver" },
+                new { value = Color.Gray, name = "Gray" },
+                new { value = Color.Black, name = "Black" },
+                new { value = Color.Red, name = "Red" },
+                new { value = Color.Maroon, name = "Maroon" },
+                new { value = Color.Yellow, name = "Yellow" },
+                new { value = Color.Olive, name = "Olive" },
+                new { value = Color.Lime, name = "Lime" },
+                new { value = Color.Green, name = "Green" },
+                new { value = Color.Aqua, name = "Aqua" },
+                new { value = Color.Teal, name = "Teal" },
+                new { value = Color.Blue, name = "Blue" },
+                new { value = Color.Navy, name = "Navy" },
+                new { value = Color.Pink, name = "Pink" },
+                new { value = Color.Fuchsia, name = "Fuchsia" },
+                new { value = Color.Purple, name = "Purple" }
+            };
+
+            StackLayout stackLayout = new StackLayout();
+
+            foreach (var color in colors)
+            {
+                stackLayout.Children.Add(
+                    new Label
+                    {
+                        Text = color.name,
+                        TextColor = color.value,
+                        FontSize = Device.GetNamedSize(NamedSize.Large, typeof(Label))
+                    });
+            }
+
+            Padding = new Thickness(5, Device.RuntimePlatform == Device.iOS ? 20 : 5, 5, 5);
+            //Content = stackLayout;
+
+            Content = new ScrollView
+            {
+                Content = stackLayout
+            };
+
             InitializeComponent();
         }
 
