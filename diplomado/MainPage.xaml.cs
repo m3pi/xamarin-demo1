@@ -17,76 +17,6 @@ namespace diplomado
 
         public MainPage()
         {
-            #region Controladores de eventos anónimos
-
-            ///* Es posible definir Clicked controladores como funciones lambda anónima, como la ButtonLambdas muestra. 
-            // * Sin embargo, no se puede compartir controladores anónimos sin algún código de reflexión sin optimizar.
-            //*/
-
-
-            //// Number to manipulate.
-            //double number = 1;
-
-            //// Create the Label for display.
-            //Label label = new Label
-            //{
-            //    Text = number.ToString(),
-            //    FontSize = Device.GetNamedSize(NamedSize.Large, typeof(Label)),
-            //    HorizontalOptions = LayoutOptions.Center,
-            //    VerticalOptions = LayoutOptions.CenterAndExpand
-            //};
-
-            //// Create the first Button and attach Clicked handler.
-            //Button timesButton = new Button
-            //{
-            //    Text = "Double",
-            //    FontSize = Device.GetNamedSize(NamedSize.Large, typeof(Button)),
-            //    HorizontalOptions = LayoutOptions.CenterAndExpand
-            //};
-            //timesButton.Clicked += (sender, args) =>
-            //{
-            //    number *= 2;
-            //    label.Text = number.ToString();
-            //};
-
-            //// Create the second Button and attach Clicked handler.
-            //Button divideButton = new Button
-            //{
-            //    Text = "Half",
-            //    FontSize = Device.GetNamedSize(NamedSize.Large, typeof(Button)),
-            //    HorizontalOptions = LayoutOptions.CenterAndExpand
-            //};
-            //divideButton.Clicked += (sender, args) =>
-            //{
-            //    number /= 2;
-            //    label.Text = number.ToString();
-            //};
-
-            //// Assemble the page.
-            //this.Content = new StackLayout
-            //{
-            //    Children =
-            //    {
-            //        label,
-            //        new StackLayout
-            //        {
-            //            Orientation = StackOrientation.Horizontal,
-            //            VerticalOptions = LayoutOptions.CenterAndExpand,
-            //            Children =
-            //            {
-            //                timesButton,
-            //                divideButton
-            //            }
-            //        }
-            //    }
-            //};
-
-            #endregion
-
-            #region el mismo controlador de eventos para todas las claves
-
-            //el mismo controlador de eventos para todas las claves de número 10 en un teclado numérico y distingue entre ellos con el StyleId propiedad:
-
             // Create a vertical stack for the entire keypad.
             StackLayout mainStack = new StackLayout
             {
@@ -145,7 +75,11 @@ namespace diplomado
 
             this.Content = mainStack;
 
-            #endregion
+            // New code for loading previous keypad text.
+            App app = Application.Current as App;
+            displayLabel.Text = app.DisplayLabelText;
+            backspaceButton.IsEnabled = displayLabel.Text != null &&
+                displayLabel.Text.Length > 0;
 
             //InitializeComponent();
         }
@@ -156,6 +90,10 @@ namespace diplomado
             Button button = (Button)sender;
             displayLabel.Text += (string)button.StyleId;
             backspaceButton.IsEnabled = true;
+
+            // Save keypad text.
+            App app = Application.Current as App;
+            app.DisplayLabelText = displayLabel.Text;
         }
 
         void OnBackspaceButtonClicked(object sender, EventArgs args)
@@ -163,6 +101,10 @@ namespace diplomado
             string text = displayLabel.Text;
             displayLabel.Text = text.Substring(0, text.Length - 1);
             backspaceButton.IsEnabled = displayLabel.Text.Length > 0;
+
+            // Save keypad text.
+            App app = Application.Current as App;
+            app.DisplayLabelText = displayLabel.Text;
         }
 
     }
