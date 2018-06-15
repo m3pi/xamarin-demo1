@@ -6,17 +6,16 @@
         </OnPlatform>
     </ContentPage.Padding>
 
-    <StackLayout>
-        <Label FontSize="Large"
-           HorizontalOptions="Center"
-           Text="Mi texto"
-           VerticalOptions="EndAndExpand"
-           x:Name="timeLabel"></Label>
-
     <Label HorizontalOptions="Center"
-           Text="Mi texto 2"
-           VerticalOptions="StartAndExpand"
-           x:Name="dateLabel"></Label>
-    </StackLayout>
+           VerticalOptions="Center"
+           x:Name="deviceLabel">
+        <Label.Text>
+            <OnPlatform x:TypeArguments="x:String">
+                <On Platform="iOS" Value="This is an iOS device"></On>
+                <On Platform="Android" Value="This is an Android device"></On>
+                <On Platform="UWP" Value="This is a Windows device"></On>
+            </OnPlatform>
+        </Label.Text>
+    </Label>
     
 </ContentPage>

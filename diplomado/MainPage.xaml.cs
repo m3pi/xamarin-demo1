@@ -14,18 +14,6 @@ namespace diplomado
         public MainPage()
         {
             InitializeComponent();
-
-            Device.StartTimer(TimeSpan.FromSeconds(1), OnTimerTick);
-        }
-
-        bool OnTimerTick()
-        {
-            var dt = DateTime.Now;
-
-            timeLabel.Text = dt.ToString("T");
-            dateLabel.Text = dt.ToString("D");
-
-            return true;
         }
 
     }
