@@ -5,19 +5,49 @@
             <On Platform="iOS" Value="0, 20, 0, 0" />
         </OnPlatform>
     </ContentPage.Padding>
-    <ContentPage.Content>
-        <StackLayout>
-            <StackLayout.Children>
-                <Label Text="Hello from XAML!"
-                       IsVisible="True"
-                       Opacity="0.75"
-                       HorizontalTextAlignment="Center"
-                       VerticalOptions="CenterAndExpand"
-                       TextColor="Blue"
-                       BackgroundColor="#FF8080"
-                       FontSize="Large"
-                       FontAttributes="Bold,Italic" />
-            </StackLayout.Children>
-        </StackLayout>
-</ContentPage.Content>
+    <StackLayout>
+        <BoxView WidthRequest="100"
+                 HeightRequest="100"
+                 HorizontalOptions="Center"
+                 VerticalOptions="CenterAndExpand">
+            <BoxView.Color>
+                <Color>
+                    <x:Arguments>
+                        <x:Double>1</x:Double>
+                        <x:Double>0</x:Double>
+                        <x:Double>0</x:Double>
+                    </x:Arguments>
+                </Color>
+            </BoxView.Color>
+        </BoxView>
+
+        <BoxView WidthRequest="100"
+                 HeightRequest="100"
+                 HorizontalOptions="Center"
+                 VerticalOptions="CenterAndExpand">
+            <BoxView.Color>
+                <Color>
+                    <x:Arguments>
+                        <x:Double>0</x:Double>
+                        <x:Double>0</x:Double>
+                        <x:Double>1</x:Double>
+                        <x:Double>0.5</x:Double>
+                    </x:Arguments>
+                </Color>
+            </BoxView.Color>
+        </BoxView>
+
+        <BoxView WidthRequest="100"
+                 HeightRequest="100"
+                 HorizontalOptions="Center"
+                 VerticalOptions="CenterAndExpand">
+            <BoxView.Color>
+                <Color>
+                    <x:Arguments>
+                        <x:Double>0.5</x:Double>
+                    </x:Arguments>
+                </Color>
+            </BoxView.Color>
+        </BoxView>
+</StackLayout>
 </ContentPage>
