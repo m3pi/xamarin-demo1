@@ -1,32 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:local="clr-namespace:diplomado" x:Class="diplomado.MainPage">
-    <StackLayout VerticalOptions="Center" Padding="20,5,20,5">
-        <!-- Place new controls here -->
-        <Label BackgroundColor="Teal" FontAttributes="Bold, Italic" FontFamily="Times new roman" FontSize="Medium" Text="Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod&#xA;tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,&#xA;quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo&#xA;consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse&#xA;cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non&#xA;proident, sunt in culpa qui officia deserunt mollit anim id est laborum." TextColor="White">
-        </Label>
-
-        <!--Para una sola linea-->
-        <!-- https://docs.microsoft.com/en-us/xamarin/xamarin-forms/user-interface/text/label -->
-        <Label>
-            <Label.FormattedText>
-                <FormattedString>
-                    <Span Text="Red Bold" ForegroundColor="Red" FontAttributes="Bold" />
-                    <Span Text=" - Default" />
-                    <Span Text=" - italic small" FontAttributes="Italic" FontSize="Small" />
-                </FormattedString>
-            </Label.FormattedText>
-        </Label>
-        <Button
-            BorderColor="Fuchsia"
-            BorderWidth="1"
-            BorderRadius="20"
-            BackgroundColor="Gray"
-            
-            FontAttributes="Italic"
-            FontFamily="Calibri"
-            FontSize="Large"
-            Text="Login"
-            TextColor="Green">
-        </Button>
-    </StackLayout>
+    <ContentPage.Padding>
+        <OnPlatform x:TypeArguments="Thickness">
+            <On Platform="iOS" Value="0, 20, 0, 0">
+            </On>
+        </OnPlatform>
+    </ContentPage.Padding>
+    <ScrollView>
+        <StackLayout>
+            <Label BackgroundColor="Teal" Text="Single lines of text are easy." VerticalOptions="CenterAndExpand">
+            </Label>
+            <Label VerticalOptions="CenterAndExpand">
+                <Label.Text>
+                    Text can also be content of the Text property
+                </Label.Text>
+            </Label>
+            <Label VerticalOptions="CenterAndExpand">
+                Text is content property of Label
+            </Label>
+            <Label Text="Perhaps the best way to define a paragraph of&#xA;uniformly formatted text is by setting the Text&#xA;property as an attribute and left justifying&#xA;the block of text in the XAML file. End-of-line&#xA;characters are converted to a space character." VerticalOptions="CenterAndExpand">
+            </Label>
+            <Label VerticalOptions="CenterAndExpand">
+                Text as content has the curse
+Of breaks at each line's close.
+That's a format great for verse
+But not the best for prose. 
+            </Label>
+            <Label VerticalOptions="CenterAndExpand">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="A single line with ">
+                        </Span>
+                        <Span Text="bold" FontAttributes="Bold" />
+                        <Span Text=" and " />
+                        <Span Text="italic" FontAttributes="Italic" />
+                        <Span Text=" and " />
+                        <Span Text="large" FontSize="Large">
+                        </Span>
+                        <Span Text=" text.">
+                        </Span>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <Label VerticalOptions="CenterAndExpand">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="A paragraph of formatted text requires left justifying&#xA;it within the XAML file. But the text can include multiple&#xA;kinds of character formatting, including " />
+                        <Span Text="bold" FontAttributes="Bold" />
+                        <Span Text=" and " />
+                        <Span Text="italic" FontAttributes="Italic" />
+                        <Span Text=" and " />
+                        <Span Text="large" FontSize="Large" />
+                        <Span Text=" and whatever combinations you might desire to adorn&#xA;your glorious prose." />
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+        </StackLayout>
+    </ScrollView>
 </ContentPage>
