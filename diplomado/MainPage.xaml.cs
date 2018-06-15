@@ -12,125 +12,158 @@ namespace diplomado
     public partial class MainPage : ContentPage
     {
 
-        //StackLayout loggerLayout = new StackLayout();
-
-
-        #region variables para crear los dos botones
-        Button addButton, removeButton;
-        StackLayout loggerLayout = new StackLayout();
-        #endregion
+        Label displayLabel;
+        Button backspaceButton;
 
         public MainPage()
         {
-            //// Create the Button and attach Clicked handler.
-            //Button button = new Button
-            //{
-            //    Text = "Log the Click Time"
-            //};
-            //button.Clicked += OnButtonClicked;
+            #region Controladores de eventos anónimos
 
-            //Padding = new Thickness(5, Device.RuntimePlatform == Device.iOS ? 20 : 0, 5, 0);
+            ///* Es posible definir Clicked controladores como funciones lambda anónima, como la ButtonLambdas muestra. 
+            // * Sin embargo, no se puede compartir controladores anónimos sin algún código de reflexión sin optimizar.
+            //*/
+
+
+            //// Number to manipulate.
+            //double number = 1;
+
+            //// Create the Label for display.
+            //Label label = new Label
+            //{
+            //    Text = number.ToString(),
+            //    FontSize = Device.GetNamedSize(NamedSize.Large, typeof(Label)),
+            //    HorizontalOptions = LayoutOptions.Center,
+            //    VerticalOptions = LayoutOptions.CenterAndExpand
+            //};
+
+            //// Create the first Button and attach Clicked handler.
+            //Button timesButton = new Button
+            //{
+            //    Text = "Double",
+            //    FontSize = Device.GetNamedSize(NamedSize.Large, typeof(Button)),
+            //    HorizontalOptions = LayoutOptions.CenterAndExpand
+            //};
+            //timesButton.Clicked += (sender, args) =>
+            //{
+            //    number *= 2;
+            //    label.Text = number.ToString();
+            //};
+
+            //// Create the second Button and attach Clicked handler.
+            //Button divideButton = new Button
+            //{
+            //    Text = "Half",
+            //    FontSize = Device.GetNamedSize(NamedSize.Large, typeof(Button)),
+            //    HorizontalOptions = LayoutOptions.CenterAndExpand
+            //};
+            //divideButton.Clicked += (sender, args) =>
+            //{
+            //    number /= 2;
+            //    label.Text = number.ToString();
+            //};
 
             //// Assemble the page.
-            //Content = new StackLayout
+            //this.Content = new StackLayout
             //{
             //    Children =
             //    {
-            //        button,
-            //        new ScrollView
+            //        label,
+            //        new StackLayout
             //        {
-            //            VerticalOptions = LayoutOptions.FillAndExpand,
-            //            Content = loggerLayout
+            //            Orientation = StackOrientation.Horizontal,
+            //            VerticalOptions = LayoutOptions.CenterAndExpand,
+            //            Children =
+            //            {
+            //                timesButton,
+            //                divideButton
+            //            }
             //        }
             //    }
             //};
 
-
-
-
-            #region Dos botones que comparten el mismo evento
-            // Create the Button views and attach Clicked handlers.
-            addButton = new Button
-            {
-                Text = "Add",
-                HorizontalOptions = LayoutOptions.CenterAndExpand
-            };
-            addButton.Clicked += OnButtonClicked;
-
-            removeButton = new Button
-            {
-                Text = "Remove",
-                HorizontalOptions = LayoutOptions.CenterAndExpand,
-                IsEnabled = false
-            };
-            removeButton.Clicked += OnButtonClicked;
-
-            Padding = new Thickness(5, Device.RuntimePlatform == Device.iOS ? 20 : 0, 5, 0);
-
-            // Assemble the page.
-            Content = new StackLayout
-            {
-                Children =
-                {
-                    new StackLayout
-                    {
-                        Orientation = StackOrientation.Horizontal,
-                        Children =
-                        {
-                            addButton,
-                            removeButton
-                        }
-                    },
-
-                    new ScrollView
-                    {
-                        VerticalOptions = LayoutOptions.FillAndExpand,
-                        Content = loggerLayout
-                    }
-                }
-            };
             #endregion
 
+            #region el mismo controlador de eventos para todas las claves
 
+            //el mismo controlador de eventos para todas las claves de número 10 en un teclado numérico y distingue entre ellos con el StyleId propiedad:
+
+            // Create a vertical stack for the entire keypad.
+            StackLayout mainStack = new StackLayout
+            {
+                VerticalOptions = LayoutOptions.Center,
+                HorizontalOptions = LayoutOptions.Center
+            };
+
+            // First row is the Label.
+            displayLabel = new Label
+            {
+                FontSize = Device.GetNamedSize(NamedSize.Large, typeof(Label)),
+                VerticalOptions = LayoutOptions.Center,
+                HorizontalTextAlignment = TextAlignment.End
+            };
+            mainStack.Children.Add(displayLabel);
+
+            // Second row is the backspace Button.
+            backspaceButton = new Button
+            {
+                Text = "\u21E6",
+                FontSize = Device.GetNamedSize(NamedSize.Large, typeof(Button)),
+                IsEnabled = false
+            };
+            backspaceButton.Clicked += OnBackspaceButtonClicked;
+            mainStack.Children.Add(backspaceButton);
+
+            // Now do the 10 number keys.
+            StackLayout rowStack = null;
+
+            for (int num = 1; num <= 10; num++)
+            {
+                if ((num - 1) % 3 == 0)
+                {
+                    rowStack = new StackLayout
+                    {
+                        Orientation = StackOrientation.Horizontal
+                    };
+                    mainStack.Children.Add(rowStack);
+                }
+
+                Button digitButton = new Button
+                {
+                    Text = (num % 10).ToString(),
+                    FontSize = Device.GetNamedSize(NamedSize.Large, typeof(Button)),
+                    StyleId = (num % 10).ToString()
+                };
+                digitButton.Clicked += OnDigitButtonClicked;
+
+                // For the zero button, expand to fill horizontally.
+                if (num == 10)
+                {
+                    digitButton.HorizontalOptions = LayoutOptions.FillAndExpand;
+                }
+                rowStack.Children.Add(digitButton);
+            }
+
+            this.Content = mainStack;
+
+            #endregion
 
             //InitializeComponent();
         }
 
-        //void OnButtonClicked(object sender, EventArgs args)
-        //{
-        //    // Add Label to scrollable StackLayout.
-        //    loggerLayout.Children.Add(new Label
-        //    {
-        //        Text = "Button clicked at " + DateTime.Now.ToString("T")
-        //    });
-        //}
 
-
-
-        #region evento que comparten los dos botones
-        void OnButtonClicked(object sender, EventArgs args)
+        void OnDigitButtonClicked(object sender, EventArgs args)
         {
             Button button = (Button)sender;
-
-            if (button == addButton)
-            {
-                // Add Label to scrollable StackLayout.
-                loggerLayout.Children.Add(new Label
-                {
-                    Text = "Button clicked at " + DateTime.Now.ToString("T")
-                });
-            }
-            else
-            {
-                // Remove topmost Label from StackLayout
-                loggerLayout.Children.RemoveAt(0);
-            }
-
-            // Enable "Remove" button only if children are present.
-            removeButton.IsEnabled = loggerLayout.Children.Count > 0;
+            displayLabel.Text += (string)button.StyleId;
+            backspaceButton.IsEnabled = true;
         }
-        #endregion
 
+        void OnBackspaceButtonClicked(object sender, EventArgs args)
+        {
+            string text = displayLabel.Text;
+            displayLabel.Text = text.Substring(0, text.Length - 1);
+            backspaceButton.IsEnabled = displayLabel.Text.Length > 0;
+        }
 
     }
 }
