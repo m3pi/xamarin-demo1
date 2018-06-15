@@ -8,45 +8,16 @@
     <ContentPage.Content>
         <StackLayout>
             <StackLayout.Children>
-                
-                <Frame OutlineColor="Accent">
-                    <Frame.Content>
-                        <StackLayout Orientation="Horizontal">
-                            <StackLayout.Children>
-                                <BoxView Color="Red">
-                                </BoxView>
-                                <Label Text="Red" VerticalOptions="Center">
-                                </Label>
-                            </StackLayout.Children>
-                        </StackLayout>
-                    </Frame.Content>
-                </Frame>
-                
-                <Frame OutlineColor="Accent">
-                    <Frame.Content>
-                        <StackLayout Orientation="Horizontal">
-                            <StackLayout.Children>
-                                <BoxView Color="Green">
-                                </BoxView>
-                                <Label Text="Green" VerticalOptions="Center">
-                                </Label>
-                            </StackLayout.Children>
-                        </StackLayout>
-                    </Frame.Content>
-                </Frame>
-                
-                <Frame OutlineColor="Accent">
-                    <Frame.Content>
-                        <StackLayout Orientation="Horizontal">
-                            <StackLayout.Children>
-                                <BoxView Color="Blue" />
-                                <Label Text="Blue" VerticalOptions="Center" />
-                            </StackLayout.Children>
-                        </StackLayout>
-                    </Frame.Content>
-                </Frame>
-                
+                <Label Text="Hello from XAML!"
+                       IsVisible="True"
+                       Opacity="0.75"
+                       HorizontalTextAlignment="Center"
+                       VerticalOptions="CenterAndExpand"
+                       TextColor="Blue"
+                       BackgroundColor="#FF8080"
+                       FontSize="Large"
+                       FontAttributes="Bold,Italic" />
             </StackLayout.Children>
         </StackLayout>
-    </ContentPage.Content>
+</ContentPage.Content>
 </ContentPage>
