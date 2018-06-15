@@ -16,5 +16,17 @@
                 </FormattedString>
             </Label.FormattedText>
         </Label>
+        <Button
+            BorderColor="Fuchsia"
+            BorderWidth="1"
+            BorderRadius="20"
+            BackgroundColor="Gray"
+            
+            FontAttributes="Italic"
+            FontFamily="Calibri"
+            FontSize="Large"
+            Text="Login"
+            TextColor="Green">
+        </Button>
     </StackLayout>
 </ContentPage>

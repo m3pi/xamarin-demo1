@@ -11,72 +11,126 @@ namespace diplomado
 {
     public partial class MainPage : ContentPage
     {
-        //Label label;
+
+        //StackLayout loggerLayout = new StackLayout();
+
+
+        #region variables para crear los dos botones
+        Button addButton, removeButton;
+        StackLayout loggerLayout = new StackLayout();
+        #endregion
+
         public MainPage()
         {
-
-            //ejemplo utiliza este evento para mostrar el tamaño de la pantalla del programa.
-            //label = new Label
+            //// Create the Button and attach Clicked handler.
+            //Button button = new Button
             //{
-            //    FontSize = Device.GetNamedSize(NamedSize.Large, typeof(Label)),
-            //    HorizontalOptions = LayoutOptions.Center,
-            //    VerticalOptions = LayoutOptions.Center
+            //    Text = "Log the Click Time"
+            //};
+            //button.Clicked += OnButtonClicked;
+
+            //Padding = new Thickness(5, Device.RuntimePlatform == Device.iOS ? 20 : 0, 5, 0);
+
+            //// Assemble the page.
+            //Content = new StackLayout
+            //{
+            //    Children =
+            //    {
+            //        button,
+            //        new ScrollView
+            //        {
+            //            VerticalOptions = LayoutOptions.FillAndExpand,
+            //            Content = loggerLayout
+            //        }
+            //    }
             //};
 
-            //Content = label;
-
-            //SizeChanged += OnPageSizeChanged;
 
 
-            //para mostrar una BoxView una pulgada de alto y uno centímetros amplia.
-            //Content = new BoxView
-            //{
-            //    Color = Color.Accent,
-            //    WidthRequest = 64,
-            //    HeightRequest = 160,
-            //    HorizontalOptions = LayoutOptions.Center,
-            //    VerticalOptions = LayoutOptions.Center
-            //};
 
-
-            //Ajustar el texto al tamaño disponible
-            // https://docs.microsoft.com/es-es/xamarin/xamarin-forms/creating-mobile-apps-xamarin-forms/summaries/chapter05
-
-            // Device.StartTimer para iniciar un temporizador que notifica periódicamente a la aplicación cuando llega el momento para actualizar el reloj
-            Label clockLabel = new Label
+            #region Dos botones que comparten el mismo evento
+            // Create the Button views and attach Clicked handlers.
+            addButton = new Button
             {
-                HorizontalOptions = LayoutOptions.Center,
-                VerticalOptions = LayoutOptions.Center
+                Text = "Add",
+                HorizontalOptions = LayoutOptions.CenterAndExpand
             };
+            addButton.Clicked += OnButtonClicked;
 
-            Content = clockLabel;
-
-            // Handle the SizeChanged event for the page.
-            SizeChanged += (object sender, EventArgs args) =>
+            removeButton = new Button
             {
-                // Scale the font size to the page width
-                //      (based on 11 characters in the displayed string).
-                if (this.Width > 0)
-                    clockLabel.FontSize = this.Width / 6;
+                Text = "Remove",
+                HorizontalOptions = LayoutOptions.CenterAndExpand,
+                IsEnabled = false
             };
+            removeButton.Clicked += OnButtonClicked;
 
-            // Start the timer going.
-            Device.StartTimer(TimeSpan.FromSeconds(1), () =>
+            Padding = new Thickness(5, Device.RuntimePlatform == Device.iOS ? 20 : 0, 5, 0);
+
+            // Assemble the page.
+            Content = new StackLayout
             {
-                // Set the Text property of the Label.
-                clockLabel.Text = DateTime.Now.ToString("h:mm:ss tt");
-                return true;
-            });
+                Children =
+                {
+                    new StackLayout
+                    {
+                        Orientation = StackOrientation.Horizontal,
+                        Children =
+                        {
+                            addButton,
+                            removeButton
+                        }
+                    },
+
+                    new ScrollView
+                    {
+                        VerticalOptions = LayoutOptions.FillAndExpand,
+                        Content = loggerLayout
+                    }
+                }
+            };
+            #endregion
 
 
 
             //InitializeComponent();
         }
 
-        //void OnPageSizeChanged(object sender, EventArgs args)
+        //void OnButtonClicked(object sender, EventArgs args)
         //{
-        //    label.Text = String.Format("{0} \u00D7 {1}", Width, Height);
+        //    // Add Label to scrollable StackLayout.
+        //    loggerLayout.Children.Add(new Label
+        //    {
+        //        Text = "Button clicked at " + DateTime.Now.ToString("T")
+        //    });
         //}
+
+
+
+        #region evento que comparten los dos botones
+        void OnButtonClicked(object sender, EventArgs args)
+        {
+            Button button = (Button)sender;
+
+            if (button == addButton)
+            {
+                // Add Label to scrollable StackLayout.
+                loggerLayout.Children.Add(new Label
+                {
+                    Text = "Button clicked at " + DateTime.Now.ToString("T")
+                });
+            }
+            else
+            {
+                // Remove topmost Label from StackLayout
+                loggerLayout.Children.RemoveAt(0);
+            }
+
+            // Enable "Remove" button only if children are present.
+            removeButton.IsEnabled = loggerLayout.Children.Count > 0;
+        }
+        #endregion
+
 
     }
 }
