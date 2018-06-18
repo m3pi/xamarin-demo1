@@ -10,7 +10,7 @@ namespace diplomado
         public App()
         {
             InitializeComponent();
-
+            //diplomado.Models.Library.Init();
             MainPage = new MainPage();
         }
 

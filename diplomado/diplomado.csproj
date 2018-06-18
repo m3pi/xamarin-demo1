@@ -6,8 +6,10 @@
 
   <ItemGroup>
     <PackageReference Include="Xamarin.Forms" Version="3.0.0.482510" />
+    <PackageReference Include="FormsToolkit" Version="2.0.1" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Images\" />
+    <Folder Include="Models\" />
   </ItemGroup>
 </Project>
