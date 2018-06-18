@@ -10,6 +10,6 @@
         </OnPlatform>
     </ContentPage.Padding>
 
-    <ListView x:Name="listView" />
+    <ListView x:Name="listView" SeparatorVisibility="Default" SeparatorColor="Red"/>
 
 </ContentPage>
