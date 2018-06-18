@@ -14,38 +14,61 @@ namespace diplomado
 
         public MainPage()
         {
-            Label label1 = new Label();
-            label1.Text = "Text with CLR properties";
-            label1.IsVisible = true;
-            label1.Opacity = 0.75;
-            label1.HorizontalTextAlignment = TextAlignment.Center;
-            label1.VerticalOptions = LayoutOptions.CenterAndExpand;
-            label1.TextColor = Color.Blue;
-            label1.BackgroundColor = Color.FromRgb(255, 128, 128);
-            label1.FontSize = Device.GetNamedSize(NamedSize.Medium, new Label());
-            label1.FontAttributes = FontAttributes.Bold | FontAttributes.Italic;
+            Padding = new Thickness(5, 0);
 
-            Label label2 = new Label();
-            label2.SetValue(Label.TextProperty, "Text with bindable properties");
-            label2.SetValue(Label.IsVisibleProperty, true);
-            label2.SetValue(Label.OpacityProperty, 0.75);
-            label2.SetValue(Label.HorizontalTextAlignmentProperty, TextAlignment.Center);
-            label2.SetValue(Label.VerticalOptionsProperty, LayoutOptions.CenterAndExpand);
-            label2.SetValue(Label.TextColorProperty, Color.Blue);
-            label2.SetValue(Label.BackgroundColorProperty, Color.FromRgb(255, 128, 128));
-            label2.SetValue(Label.FontSizeProperty,
-                            Device.GetNamedSize(NamedSize.Medium, new Label()));
-            label2.SetValue(Label.FontAttributesProperty,
-                            FontAttributes.Bold | FontAttributes.Italic);
+            // Create resource dictionary and add item.
+            Resources = new ResourceDictionary
+            {
+                { "currentDateTime", "Not actually a DateTime" }
+            };
 
             Content = new StackLayout
             {
                 Children =
                 {
-                    label1,
-                    label2
+                    new Label
+                    {
+                        Text = "StaticResource on Label.Text:",
+                        VerticalOptions = LayoutOptions.EndAndExpand,
+                        FontSize = Device.GetNamedSize(NamedSize.Medium, typeof(Label))
+                    },
+
+                    new Label
+                    {
+                        Text = (string)Resources["currentDateTime"],
+                        VerticalOptions = LayoutOptions.StartAndExpand,
+                        HorizontalTextAlignment = TextAlignment.Center,
+                        FontSize = Device.GetNamedSize(NamedSize.Medium, typeof(Label))
+                    },
+
+                    new Label
+                    {
+                        Text = "DynamicResource on Label.Text:",
+                        VerticalOptions = LayoutOptions.EndAndExpand,
+                        FontSize = Device.GetNamedSize(NamedSize.Medium, typeof(Label))
+                    }
                 }
             };
+
+            // Create the final label with the dynamic resource.
+            Label label = new Label
+            {
+                VerticalOptions = LayoutOptions.StartAndExpand,
+                HorizontalTextAlignment = TextAlignment.Center,
+                FontSize = Device.GetNamedSize(NamedSize.Medium, typeof(Label))
+            };
+
+            label.SetDynamicResource(Label.TextProperty, "currentDateTime");
+
+            ((StackLayout)Content).Children.Add(label);
+
+            // Start the timer going.
+            Device.StartTimer(TimeSpan.FromSeconds(1),
+                () =>
+                {
+                    Resources["currentDateTime"] = DateTime.Now.ToString();
+                    return true;
+                });
 
             //InitializeComponent();
         }
