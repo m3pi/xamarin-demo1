@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -16,14 +17,14 @@ namespace diplomado
         {
             InitializeComponent();
 
-            Array.Sort<Color>((Color[])listView.ItemsSource,
-                (Color color1, Color color2) =>
-                {
-                    if (color1.Hue == color2.Hue)
-                        return Math.Sign(color1.Luminosity - color2.Luminosity);
+            ObservableCollection<DateTime> list = new ObservableCollection<DateTime>();
+            listView.ItemsSource = list;
 
-                    return Math.Sign(color1.Hue - color2.Hue);
-                });
+            Device.StartTimer(TimeSpan.FromSeconds(1), () =>
+            {
+                list.Add(DateTime.Now);
+                return true;
+            });
         }
 
 
