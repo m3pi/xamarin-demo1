@@ -10,42 +10,24 @@
         </OnPlatform>
     </ContentPage.Padding>
 
-    <ContentPage.Resources>
-        <ResourceDictionary>
-            <local:PowersViewModel x:Key="viewModel">
-                <x:Arguments>
-                    <x:Double>3</x:Double>
-                </x:Arguments>
-            </local:PowersViewModel>
-        </ResourceDictionary>
-    </ContentPage.Resources>
+    <StackLayout Padding="20"
+                 Spacing="50">
 
-    <StackLayout BindingContext="{StaticResource viewModel}">
-        <StackLayout Orientation="Horizontal"
-                     Spacing="0"
-                     HorizontalOptions="Center"
-                     VerticalOptions="CenterAndExpand">
-            <Label FontSize="Large"
-                   Text="{Binding BaseValue, StringFormat='{0}'}" />
-            
-            <Label FontSize="Small"
-                   Text="{Binding Exponent, StringFormat='{0}'}" />
+        <Entry x:Name="entry"
+               Placeholder="Type something, type anything" />
 
-            <Label FontSize="Large"
-                   Text="{Binding Power, StringFormat=' = {0}'}" />
-        </StackLayout>
-
-        <StackLayout Orientation="Horizontal"
-                     VerticalOptions="CenterAndExpand">
-
-            <Button Text="Increase"
-                    Command="{Binding IncreaseExponentCommand}"
-                    HorizontalOptions="CenterAndExpand" />
-
-            <Button Text="Decrease"
-                    Command="{Binding DecreaseExponentCommand}"
-                    HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
+        <Picker Title="Keyboard Type"
+                SelectedIndexChanged="OnPickerSelectedIndexChanged">
+            <Picker.Items>
+                <x:String>Default</x:String>
+                <x:String>Text</x:String>
+                <x:String>Chat</x:String>
+                <x:String>Url</x:String>
+                <x:String>Email</x:String>
+                <x:String>Telephone</x:String>
+                <x:String>Numeric</x:String>
+            </Picker.Items>
+        </Picker>
 </StackLayout>
 
 </ContentPage>
