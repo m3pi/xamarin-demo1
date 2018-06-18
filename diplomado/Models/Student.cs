@@ -17,7 +17,7 @@ namespace diplomado.Models
             ResetGpaCommand = new Command(() => GradePointAverage = 2.5);
             MoveToTopCommand = new Command(() => StudentBody.MoveStudentToTop(this));
             MoveToBottomCommand = new Command(() => StudentBody.MoveStudentToBottom(this));
-            RemoveComand = new Command(() => StudentBody.RemoveStudent(this));
+            RemoveCommand = new Command(() => StudentBody.RemoveStudent(this));
         }
 
         public string FullName
@@ -80,7 +80,7 @@ namespace diplomado.Models
         public ICommand MoveToBottomCommand { get; private set; }
 
         [XmlIgnore]
-        public ICommand RemoveComand { get; private set; }
+        public ICommand RemoveCommand { get; private set; }
 
         [XmlIgnore]
         public StudentBody StudentBody { get; set; }

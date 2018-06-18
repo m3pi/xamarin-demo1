@@ -2,8 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:diplomado" 
-             x:Class="diplomado.MainPage"
-             SizeChanged="OnPageSizeChanged">
+             x:Class="diplomado.MainPage">
 
     <ContentPage.Padding>
         <OnPlatform x:TypeArguments="Thickness">
@@ -11,7 +10,7 @@
         </OnPlatform>
     </ContentPage.Padding>
 
-   <Grid x:Name="mainGrid">
+    <Grid x:Name="mainGrid">
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
             <RowDefinition Height="*" />
@@ -31,7 +30,22 @@
                     <ImageCell ImageSource="{Binding PhotoFilename}"
                                Text="{Binding FullName}"
                                Detail="{Binding GradePointAverage,
-                                                StringFormat='G.P.A. = {0:F2}'}" />
+                                                StringFormat='G.P.A. = {0:F2}'}" >
+                        <ImageCell.ContextActions>
+                            <MenuItem Text="Reset GPA"
+                                      Command="{Binding ResetGpaCommand}" />
+                            
+                            <MenuItem Text="Move to top"
+                                      Command="{Binding MoveToTopCommand}" />
+
+                            <MenuItem Text="Move to bottom"
+                                      Command="{Binding MoveToBottomCommand}" />
+
+                            <MenuItem Text="Remove"
+                                      IsDestructive="True"
+                                      Command="{Binding RemoveCommand}" />
+                        </ImageCell.ContextActions>
+                        </ImageCell>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
@@ -67,4 +81,6 @@
                    HorizontalOptions="Center" />
         </StackLayout>
 </Grid>
+
+    
 </ContentPage>
