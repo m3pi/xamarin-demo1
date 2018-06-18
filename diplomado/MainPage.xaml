@@ -1,64 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
-             xmlns:local="clr-namespace:diplomado" 
-             x:Class="diplomado.MainPage"
-             BackgroundColor="{x:Static local:AppConstants.LightBackground}">
+             xmlns:sys="clr-namespace:System;assembly=mscorlib" 
+             x:Class="diplomado.MainPage">
     <ContentPage.Padding>
         <OnPlatform x:TypeArguments="Thickness">
             <On Platform="iOS" Value="0, 20, 0, 0" />
         </OnPlatform>
     </ContentPage.Padding>
 
-    <StackLayout Padding="10, 0"
-                 Spacing="{x:Static local:AppConstants.ParagraphSpacing}">
+    <StackLayout>
+        <Button Text=" Button with &#x03C0; border width "
+                BorderWidth="{x:Static sys:Math.PI}"
+                HorizontalOptions="Center"
+                VerticalOptions="CenterAndExpand">
+            <Button.BackgroundColor>
+                <OnPlatform x:TypeArguments="Color">
+                    <On Platform="Android" Value="#404040" />
+                </OnPlatform>
+            </Button.BackgroundColor>            
+            <Button.BorderColor>
+                <OnPlatform x:TypeArguments="Color">
+                    <On Platform="Android" Value="White" />
+                    <On Platform="UWP" Value="Black" />
+                </OnPlatform>
+            </Button.BorderColor>
+        </Button>
 
-        <Label Text="The SharedStatics Program"  
-               TextColor="{x:Static local:AppConstants.DarkForeground}"
-               FontSize="{x:Static local:AppConstants.TitleFontSize}"
-               FontAttributes="{x:Static local:AppConstants.TitleAttribute}"
-               HorizontalTextAlignment="{x:Static local:AppConstants.TitleAlignment}" />
-
-        <Label TextColor="{x:Static local:AppConstants.DarkForeground}" 
-               FontSize="{x:Static local:AppConstants.NormalFontSize}">
+        <Label VerticalOptions="CenterAndExpand"
+               HorizontalTextAlignment="Center"
+               FontSize="Medium">
             <Label.FormattedText>
                 <FormattedString>
-                    <Span Text="Through use of the " />
-                    <Span Text="x:Static"
-                          FontSize="{x:Static local:AppConstants.NormalFontSize}"
-                          FontAttributes="{x:Static local:AppConstants.Emphasis}" />
-                    <Span Text=
-" XAML markup extension, an application can maintain a collection of
-common property settings defined as constants, static properties, static
-fields, or enumeration members in a separate code file. These can then be
-referenced within the XAML file." />
+                    <Span Text="Three lines of text" />
+                    <Span Text="{x:Static sys:Environment.NewLine}" />
+                    <Span Text="separated by" />
+                    <Span Text="{x:Static sys:Environment.NewLine}" />
+                    <Span Text="Environment.NewLine"
+                          FontSize="Medium"
+                          FontAttributes="Italic" />
+                    <Span Text=" strings" />
                 </FormattedString>
             </Label.FormattedText>
         </Label>
-
-        <Label TextColor="{x:Static local:AppConstants.DarkForeground}"
-               FontSize="{x:Static local:AppConstants.NormalFontSize}">
-            <Label.FormattedText>
-                <FormattedString>
-                    <Span Text=
-"However, this is not the only technique to share property settings.
-You'll soon discover that you can store objects in a " />
-                    <Span Text="ResourceDictionary"
-                          FontSize="{x:Static local:AppConstants.NormalFontSize}"
-                          FontAttributes="{x:Static local:AppConstants.Emphasis}" />
-                    <Span Text=" and access them through the " />
-                    <Span Text="StaticResource"
-                          FontSize="{x:Static local:AppConstants.NormalFontSize}"
-                          FontAttributes="{x:Static local:AppConstants.Emphasis}" />
-                    <Span Text=
-" markup extension, and even encapsultate multiple property settings in a " />
-                    <Span Text="Style"
-                          FontSize="{x:Static local:AppConstants.NormalFontSize}"
-                          FontAttributes="{x:Static local:AppConstants.Emphasis}" />
-                    <Span Text=" object." />
-                </FormattedString>
-            </Label.FormattedText>
-        </Label>            
 </StackLayout>
     
 </ContentPage>
