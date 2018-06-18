@@ -9,50 +9,40 @@
         </OnPlatform>
     </ContentPage.Padding>
 
-    <StackLayout VerticalOptions="Center"
-                 HorizontalOptions="Center">
-
-        <Label x:Name="displayLabel"
-               FontSize="Large"
-               VerticalOptions="Center"
-               HorizontalTextAlignment="End" />
-
-        <Button x:Name="backspaceButton"
-                Text="&#x21E6;"
+    <StackLayout>
+        <BoxView x:Name="boxview0"
+                 VerticalOptions="FillAndExpand">
+            <BoxView.GestureRecognizers>
+                <TapGestureRecognizer Tapped="OnBoxViewTapped" />                
+            </BoxView.GestureRecognizers>
+        </BoxView>
+        
+        <BoxView x:Name="boxview1"
+                 VerticalOptions="FillAndExpand">
+            <BoxView.GestureRecognizers>
+                <TapGestureRecognizer Tapped="OnBoxViewTapped" />                
+            </BoxView.GestureRecognizers>
+        </BoxView>
+        
+        <Button x:Name="startGameButton"
+                Text="Begin"
                 FontSize="Large"
-                IsEnabled="False"
-                Clicked="OnBackspaceButtonClicked" />
-
-        <StackLayout Orientation="Horizontal">
-            <Button Text="7" StyleId="7" FontSize="Large"
-                    Clicked="OnDigitButtonClicked" />
-            <Button Text="8" StyleId="8" FontSize="Large"
-                    Clicked="OnDigitButtonClicked" />
-            <Button Text="9" StyleId="9" FontSize="Large"
-                    Clicked="OnDigitButtonClicked" />
-        </StackLayout>
-
-        <StackLayout Orientation="Horizontal">
-            <Button Text="4" StyleId="4" FontSize="Large"
-                    Clicked="OnDigitButtonClicked" />
-            <Button Text="5" StyleId="5" FontSize="Large"
-                    Clicked="OnDigitButtonClicked" />
-            <Button Text="6" StyleId="6" FontSize="Large"
-                    Clicked="OnDigitButtonClicked" />
-        </StackLayout>
-
-        <StackLayout Orientation="Horizontal">
-            <Button Text="1" StyleId="1" FontSize="Large"
-                    Clicked="OnDigitButtonClicked" />
-            <Button Text="2" StyleId="2" FontSize="Large"
-                    Clicked="OnDigitButtonClicked" />
-            <Button Text="3" StyleId="3" FontSize="Large"
-                    Clicked="OnDigitButtonClicked" />
-        </StackLayout>
-
-        <Button Text="0" StyleId="0" FontSize="Large"
-                Clicked="OnDigitButtonClicked" />
-
+                HorizontalOptions="Center"
+                Clicked="OnStartGameButtonClicked" />
+        
+        <BoxView x:Name="boxview2"
+                 VerticalOptions="FillAndExpand">
+            <BoxView.GestureRecognizers>
+                <TapGestureRecognizer Tapped="OnBoxViewTapped" />                
+            </BoxView.GestureRecognizers>
+        </BoxView>
+        
+        <BoxView x:Name="boxview3"
+                 VerticalOptions="FillAndExpand">
+            <BoxView.GestureRecognizers>
+                <TapGestureRecognizer Tapped="OnBoxViewTapped" />                
+            </BoxView.GestureRecognizers>
+        </BoxView>
 </StackLayout>
     
 </ContentPage>

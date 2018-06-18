@@ -11,36 +11,112 @@ namespace diplomado
 {
     public partial class MainPage : ContentPage
     {
-        App app = Application.Current as App;
-        
+        const int sequenceTime = 750;       // in msec
+        protected const int flashDuration = 250;
+
+        const double offLuminosity = 0.4;   // somewhat dimmer
+        const double onLuminosity = 0.75;   // much brighter
+
+        BoxView[] boxViews;
+        Color[] colors = { Color.Red, Color.Blue, Color.Yellow, Color.Green };
+        List<int> sequence = new List<int>();
+        int sequenceIndex;
+        bool awaitingTaps;
+        bool gameEnded;
+        Random random = new Random();
+
         public MainPage()
         {
             InitializeComponent();
-
-            displayLabel.Text = app.DisplayLabelText;
-            backspaceButton.IsEnabled = displayLabel.Text != null &&
-                displayLabel.Text.Length > 0;
-
+            boxViews = new BoxView[] { boxview0, boxview1, boxview2, boxview3 };
+            InitializeBoxViewColors();
         }
 
-        void OnDigitButtonClicked(object sender, EventArgs args)
+        void InitializeBoxViewColors()
         {
-            Button button = (Button)sender;
-
-            displayLabel.Text += (string)button.StyleId;
-            backspaceButton.IsEnabled = true;
-
-            app.DisplayLabelText = displayLabel.Text;
+            for (int index = 0; index < 4; index++)
+                boxViews[index].Color = colors[index].WithLuminosity(offLuminosity);
         }
 
-        void OnBackspaceButtonClicked(object sender, EventArgs args)
+        protected void OnStartGameButtonClicked(object sender, EventArgs args)
         {
-            string text = displayLabel.Text;
+            gameEnded = false;
+            startGameButton.IsVisible = false;
+            InitializeBoxViewColors();
+            sequence.Clear();
+            StartSequence();
+        }
 
-            displayLabel.Text = text.Substring(0, text.Length - 1);
-            backspaceButton.IsEnabled = displayLabel.Text.Length > 0;
+        void StartSequence()
+        {
+            sequence.Add(random.Next(4));
+            sequenceIndex = 0;
+            Device.StartTimer(TimeSpan.FromMilliseconds(sequenceTime), OnTimerTick);
+        }
 
-            app.DisplayLabelText = displayLabel.Text;
+        bool OnTimerTick()
+        {
+            if (gameEnded)
+                return false;
+
+            FlashBoxView(sequence[sequenceIndex]);
+            sequenceIndex++;
+            awaitingTaps = sequenceIndex == sequence.Count;
+            sequenceIndex = awaitingTaps ? 0 : sequenceIndex;
+            return !awaitingTaps;
+        }
+
+        protected virtual void FlashBoxView(int index)
+        {
+            boxViews[index].Color = colors[index].WithLuminosity(onLuminosity);
+            Device.StartTimer(TimeSpan.FromMilliseconds(flashDuration), () =>
+            {
+                if (gameEnded)
+                    return false;
+
+                boxViews[index].Color = colors[index].WithLuminosity(offLuminosity);
+                return false;
+            });
+        }
+
+        protected void OnBoxViewTapped(object sender, EventArgs args)
+        {
+            if (gameEnded)
+                return;
+
+            if (!awaitingTaps)
+            {
+                EndGame();
+                return;
+            }
+
+            BoxView tappedBoxView = (BoxView)sender;
+            int index = Array.IndexOf(boxViews, tappedBoxView);
+
+            if (index != sequence[sequenceIndex])
+            {
+                EndGame();
+                return;
+            }
+
+            FlashBoxView(index);
+
+            sequenceIndex++;
+            awaitingTaps = sequenceIndex < sequence.Count;
+
+            if (!awaitingTaps)
+                StartSequence();
+        }
+
+        protected virtual void EndGame()
+        {
+            gameEnded = true;
+
+            for (int index = 0; index < 4; index++)
+                boxViews[index].Color = Color.Gray;
+
+            startGameButton.Text = "Try again?";
+            startGameButton.IsVisible = true;
         }
 
     }
