@@ -7,6 +7,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using diplomado.Models;
+using diplomado.ViewModels;
 using Xamarin.Forms;
 
 namespace diplomado
@@ -16,35 +17,35 @@ namespace diplomado
         public MainPage()
         {
             InitializeComponent();
-            BindingContext = new SchoolViewModel();
+            //BindingContext = new SchoolViewModel();
         }
 
-        void OnPageSizeChanged(object sender, EventArgs args)
+
+        void OnListViewItemSelected(object sender, SelectedItemChangedEventArgs args)
         {
-             //Portrait mode.
-            if (Width < Height)
+            if (args.SelectedItem != null)
             {
-                mainGrid.ColumnDefinitions[0].Width = new GridLength(1, GridUnitType.Star);
-                mainGrid.ColumnDefinitions[1].Width = new GridLength(0);
+                // Deselect item.
+                ((ListView)sender).SelectedItem = null;
 
-                mainGrid.RowDefinitions[0].Height = new GridLength(1, GridUnitType.Star);
-                mainGrid.RowDefinitions[1].Height = new GridLength(1, GridUnitType.Star);
+                // Set WebView source to RSS item
+                RssItemViewModel rssItem = (RssItemViewModel)args.SelectedItem;
 
-                Grid.SetRow(detailLayout, 1);
-                Grid.SetColumn(detailLayout, 0);
+                // For iOS 9, a NSAppTransportSecurity key was added to 
+                //  Info.plist to allow accesses to EarthObservatory.nasa.gov sites.
+                webView.Source = rssItem.Link;
+
+                // Hide and make visible.
+                rssLayout.IsVisible = false;
+                webLayout.IsVisible = true;
             }
-            // Landscape mode.
-            else
-            {
-                mainGrid.ColumnDefinitions[0].Width = new GridLength(1, GridUnitType.Star);
-                mainGrid.ColumnDefinitions[1].Width = new GridLength(1, GridUnitType.Star);
+        }
 
-                mainGrid.RowDefinitions[0].Height = new GridLength(1, GridUnitType.Star);
-                mainGrid.RowDefinitions[1].Height = new GridLength(0);
-
-                Grid.SetRow(detailLayout, 0);
-                Grid.SetColumn(detailLayout, 1);
-            }
+        void OnBackButtonClicked(object sender, EventArgs args)
+        {
+            // Hide and make visible.
+            webLayout.IsVisible = false;
+            rssLayout.IsVisible = true;
         }
 
     }
