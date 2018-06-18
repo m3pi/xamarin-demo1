@@ -1,48 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
-             xmlns:sys="clr-namespace:System;assembly=mscorlib" 
+             xmlns:local="clr-namespace:diplomado" 
              x:Class="diplomado.MainPage">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <LayoutOptions x:Key="horzOptions">Center</LayoutOptions>
+            
+            <LayoutOptions x:Key="vertOptions"
+                           Alignment="Center"
+                           Expands="True" />
+
+            <x:Double x:Key="borderWidth">3</x:Double>
+
+            <Color x:Key="textColor">Red</Color>
+
+            <OnPlatform x:Key="backgroundColor"
+                        x:TypeArguments="Color">
+                <On Platform="Android" Value="#404040" />
+            </OnPlatform>
+
+            <OnPlatform x:Key="borderColor"
+                        x:TypeArguments="Color">
+                <On Platform="Android" Value="White" />
+                <On Platform="UWP" Value="Black" />
+            </OnPlatform>
+
+            <x:String x:Key="fontSize">Large</x:String>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
     <ContentPage.Padding>
         <OnPlatform x:TypeArguments="Thickness">
             <On Platform="iOS" Value="0, 20, 0, 0" />
         </OnPlatform>
     </ContentPage.Padding>
-
+    
     <StackLayout>
-        <Button Text=" Button with &#x03C0; border width "
-                BorderWidth="{x:Static sys:Math.PI}"
-                HorizontalOptions="Center"
-                VerticalOptions="CenterAndExpand">
+        <Button Text=" Carpe diem ">
+            <Button.HorizontalOptions>
+                <StaticResourceExtension Key="horzOptions" />
+            </Button.HorizontalOptions>
+
+            <Button.VerticalOptions>
+                <StaticResourceExtension Key="vertOptions" />
+            </Button.VerticalOptions>
+
+            <Button.BorderWidth>
+                <StaticResourceExtension Key="borderWidth" />
+            </Button.BorderWidth>
+
+            <Button.TextColor>
+                <StaticResourceExtension Key="textColor" />
+            </Button.TextColor>
+
             <Button.BackgroundColor>
-                <OnPlatform x:TypeArguments="Color">
-                    <On Platform="Android" Value="#404040" />
-                </OnPlatform>
-            </Button.BackgroundColor>            
+                <StaticResourceExtension Key="backgroundColor" />
+            </Button.BackgroundColor>
+
             <Button.BorderColor>
-                <OnPlatform x:TypeArguments="Color">
-                    <On Platform="Android" Value="White" />
-                    <On Platform="UWP" Value="Black" />
-                </OnPlatform>
+                <StaticResourceExtension Key="borderColor" />
             </Button.BorderColor>
+
+            <Button.FontSize>
+                <StaticResourceExtension Key="fontSize" />
+            </Button.FontSize>
         </Button>
 
-        <Label VerticalOptions="CenterAndExpand"
-               HorizontalTextAlignment="Center"
-               FontSize="Medium">
-            <Label.FormattedText>
-                <FormattedString>
-                    <Span Text="Three lines of text" />
-                    <Span Text="{x:Static sys:Environment.NewLine}" />
-                    <Span Text="separated by" />
-                    <Span Text="{x:Static sys:Environment.NewLine}" />
-                    <Span Text="Environment.NewLine"
-                          FontSize="Medium"
-                          FontAttributes="Italic" />
-                    <Span Text=" strings" />
-                </FormattedString>
-            </Label.FormattedText>
-        </Label>
+        <Button Text=" Sapere aude "
+                HorizontalOptions="{StaticResource Key=horzOptions}"
+                VerticalOptions="{StaticResource Key=vertOptions}"
+                BorderWidth="{StaticResource Key=borderWidth}"
+                TextColor="{StaticResource Key=textColor}"
+                BackgroundColor="{StaticResource Key=backgroundColor}"
+                BorderColor="{StaticResource Key=borderColor}"
+                FontSize="{StaticResource Key=fontSize}" />
+
+        <Button Text=" Discere faciendo "
+                HorizontalOptions="{StaticResource horzOptions}"
+                VerticalOptions="{StaticResource vertOptions}"
+                BorderWidth="{StaticResource borderWidth}"
+                TextColor="{StaticResource textColor}"
+                BackgroundColor="{StaticResource backgroundColor}"
+                BorderColor="{StaticResource borderColor}"
+                FontSize="{StaticResource fontSize}" />
 </StackLayout>
     
 </ContentPage>
