@@ -15,10 +15,6 @@ namespace diplomado
         public MainPage()
         {
             InitializeComponent();
-
-            IPlatformInfo platformInfo = DependencyService.Get<IPlatformInfo>();
-            modelLabel.Text = platformInfo.GetModel();
-            versionLabel.Text = platformInfo.GetVersion();
         }
 
 
