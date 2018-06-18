@@ -10,24 +10,6 @@
         </OnPlatform>
     </ContentPage.Padding>
 
-    <StackLayout Padding="20"
-                 Spacing="50">
-
-        <Entry x:Name="entry"
-               Placeholder="Type something, type anything" />
-
-        <Picker Title="Keyboard Type"
-                SelectedIndexChanged="OnPickerSelectedIndexChanged">
-            <Picker.Items>
-                <x:String>Default</x:String>
-                <x:String>Text</x:String>
-                <x:String>Chat</x:String>
-                <x:String>Url</x:String>
-                <x:String>Email</x:String>
-                <x:String>Telephone</x:String>
-                <x:String>Numeric</x:String>
-            </Picker.Items>
-        </Picker>
-</StackLayout>
+    <ListView x:Name="listView" />
 
 </ContentPage>
