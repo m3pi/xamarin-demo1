@@ -9,40 +9,26 @@
         </OnPlatform>
     </ContentPage.Padding>
 
-    <StackLayout>
-        <BoxView x:Name="boxview0"
-                 VerticalOptions="FillAndExpand">
-            <BoxView.GestureRecognizers>
-                <TapGestureRecognizer Tapped="OnBoxViewTapped" />                
-            </BoxView.GestureRecognizers>
-        </BoxView>
-        
-        <BoxView x:Name="boxview1"
-                 VerticalOptions="FillAndExpand">
-            <BoxView.GestureRecognizers>
-                <TapGestureRecognizer Tapped="OnBoxViewTapped" />                
-            </BoxView.GestureRecognizers>
-        </BoxView>
-        
-        <Button x:Name="startGameButton"
-                Text="Begin"
-                FontSize="Large"
-                HorizontalOptions="Center"
-                Clicked="OnStartGameButtonClicked" />
-        
-        <BoxView x:Name="boxview2"
-                 VerticalOptions="FillAndExpand">
-            <BoxView.GestureRecognizers>
-                <TapGestureRecognizer Tapped="OnBoxViewTapped" />                
-            </BoxView.GestureRecognizers>
-        </BoxView>
-        
-        <BoxView x:Name="boxview3"
-                 VerticalOptions="FillAndExpand">
-            <BoxView.GestureRecognizers>
-                <TapGestureRecognizer Tapped="OnBoxViewTapped" />                
-            </BoxView.GestureRecognizers>
-        </BoxView>
+    <StackLayout Padding="20">
+        <StackLayout VerticalOptions="CenterAndExpand">
+            <Label Text="Device Model:" />
+
+            <ContentView Padding="50, 0, 0, 0">
+                <Label x:Name="modelLabel"
+                       FontSize="Large"
+                       FontAttributes="Bold" />
+            </ContentView>
+        </StackLayout>
+
+        <StackLayout VerticalOptions="CenterAndExpand">
+            <Label Text="Operating System Version:" />
+
+            <ContentView Padding="50, 0, 0, 0">
+                <Label x:Name="versionLabel"
+                       FontSize="Large"
+                       FontAttributes="Bold" />
+            </ContentView>
+        </StackLayout>
 </StackLayout>
     
 </ContentPage>
