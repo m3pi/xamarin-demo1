@@ -20,32 +20,17 @@ namespace diplomado
             //BindingContext = new SchoolViewModel();
         }
 
-
-        void OnListViewItemSelected(object sender, SelectedItemChangedEventArgs args)
+        void OnSubmitButtonClicked(object sender, EventArgs args)
         {
-            if (args.SelectedItem != null)
-            {
-                // Deselect item.
-                ((ListView)sender).SelectedItem = null;
+            PersonalInformation personalInfo = (PersonalInformation)tableView.BindingContext;
 
-                // Set WebView source to RSS item
-                RssItemViewModel rssItem = (RssItemViewModel)args.SelectedItem;
-
-                // For iOS 9, a NSAppTransportSecurity key was added to 
-                //  Info.plist to allow accesses to EarthObservatory.nasa.gov sites.
-                webView.Source = rssItem.Link;
-
-                // Hide and make visible.
-                rssLayout.IsVisible = false;
-                webLayout.IsVisible = true;
-            }
-        }
-
-        void OnBackButtonClicked(object sender, EventArgs args)
-        {
-            // Hide and make visible.
-            webLayout.IsVisible = false;
-            rssLayout.IsVisible = true;
+            summaryLabel.Text = String.Format(
+                "{0} is {1} years old, and has an email address " +
+                "of {2}, and a phone number of {3}, and is {4}" +
+                "a programmer.",
+                personalInfo.Name, personalInfo.Age,
+                personalInfo.EmailAddress, personalInfo.PhoneNumber,
+                personalInfo.IsProgrammer ? "" : "not ");
         }
 
     }
