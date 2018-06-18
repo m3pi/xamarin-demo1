@@ -15,23 +15,17 @@ namespace diplomado
         public MainPage()
         {
             InitializeComponent();
+
+            Array.Sort<Color>((Color[])listView.ItemsSource,
+                (Color color1, Color color2) =>
+                {
+                    if (color1.Hue == color2.Hue)
+                        return Math.Sign(color1.Luminosity - color2.Luminosity);
+
+                    return Math.Sign(color1.Hue - color2.Hue);
+                });
         }
 
-        void OnPickerSelectedIndexChanged(object sender, EventArgs args)
-        {
-            if (entry == null)
-                return;
-
-            Picker picker = (Picker)sender;
-            int selectedIndex = picker.SelectedIndex;
-
-            if (selectedIndex == -1)
-                return;
-
-            string selectedItem = picker.Items[selectedIndex];
-            PropertyInfo propertyInfo = typeof(Keyboard).GetRuntimeProperty(selectedItem);
-            entry.Keyboard = (Keyboard)propertyInfo.GetValue(null);
-        }
 
 
     }
