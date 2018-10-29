@@ -6,6 +6,7 @@ namespace diplomado.Models
         string name, emailAddress, phoneNumber;
         int age;
         bool isProgrammer;
+        string language, platform;
 
         public string Name
         {
@@ -35,6 +36,18 @@ namespace diplomado.Models
         {
             set { SetProperty(ref isProgrammer, value); }
             get { return isProgrammer; }
+        }
+
+        public string Language
+        {
+            set { SetProperty(ref language, value); }
+            get { return language; }
+        }
+
+        public string Platform
+        {
+            set { SetProperty(ref platform, value); }
+            get { return platform; }
         }
     }
 }

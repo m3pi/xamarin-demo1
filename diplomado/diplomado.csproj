@@ -13,4 +13,7 @@
     <Folder Include="Models\" />
     <Folder Include="ViewModels\" />
   </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="PickerCell.xaml.cs" />
+  </ItemGroup>
 </Project>
